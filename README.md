@@ -217,14 +217,20 @@ El backend inicializa un servidor WebSocket en conjunto con HTTP. El flujo de ev
 
 ## 7. Exposición Externa con Cloudflare Tunnel
 
-Para conectar un microcontrolador físico real ubicado fuera de la red local sin realizar mapeo de puertos en el router:
+Para conectar un microcontrolador físico ubicado fuera de la red local sin realizar mapeo de puertos en el router:
 
-1. Levantar un Quick Tunnel usando `npx` y exponer el puerto `5000` de tu Express local:
+1. Instalar Cloudfare, este comando para windows:
    ```bash
-   npx card-cloudflare-tunnel --url http://localhost:5000
+   winget install Cloudflare.cloudflared
    ```
-2. Cloudflare proveerá una URL pública del tipo `https://XXXX-XXXX.trycloudflare.com`.
-3. Configurar el microcontrolador físico o tu simulador local para dirigir sus peticiones hacia esa URL. Ejemplo:
+   
+2. Levantar un Quick Tunnel desde cmd:
+   ```bash
+   cloudflared tunnel --url http://localhost:3000
+   ```
+3. Cloudflare proveerá una URL pública del tipo `https://XXXX-XXXX.trycloudflare.com`.
+   
+4. Configurar el microcontrolador físico o simulador local para dirigir sus peticiones hacia esa URL. Ejemplo:
    ```bash
    node simulator.js https://XXXX-XXXX.trycloudflare.com/sensor-data esp32_1
    ```
